@@ -92,11 +92,11 @@ namespace GoogleARCore.Examples.HelloAR
                 return;
             }
 
-            // Should not handle input if the player is pointing on UI.
-            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-            {
-                return;
-            }
+            //// Should not handle input if the player is pointing on UI.
+            //if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+            //{
+            //    return;
+            //}
 
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
@@ -117,6 +117,7 @@ namespace GoogleARCore.Examples.HelloAR
                 {
                     // Choose the prefab based on the Trackable that got hit.
                     GameObject prefab;
+                    bool vertical = false;
                     if (hit.Trackable is FeaturePoint)
                     {
                         prefab = GameObjectPointPrefab;
@@ -127,6 +128,7 @@ namespace GoogleARCore.Examples.HelloAR
                         if (detectedPlane.PlaneType == DetectedPlaneType.Vertical)
                         {
                             prefab = GameObjectVerticalPlanePrefab;
+                            vertical = true;
                         }
                         else
                         {
@@ -141,10 +143,14 @@ namespace GoogleARCore.Examples.HelloAR
                     // Instantiate prefab at the hit pose.
                     var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
 
-                    // Compensate for the hitPose rotation facing away from the raycast (i.e.
-                    // camera).
-                    gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
-
+                    if (vertical)
+                    {
+                        gameObject.transform.Rotate(0.0f, 90.0f, 270.0f, Space.Self);
+                    }
+                    else
+                    {
+                        gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+                    }
                     // Create an anchor to allow ARCore to track the hitpoint as understanding of
                     // the physical world evolves.
                     var anchor = hit.Trackable.CreateAnchor(hit.Pose);
