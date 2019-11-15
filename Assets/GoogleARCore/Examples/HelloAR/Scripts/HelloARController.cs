@@ -93,10 +93,10 @@ namespace GoogleARCore.Examples.HelloAR
             }
 
             //// Should not handle input if the player is pointing on UI.
-            //if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-            //{
-            //    return;
-            //}
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+            {
+                return;
+            }
 
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
