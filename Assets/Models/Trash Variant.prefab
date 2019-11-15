@@ -109,7 +109,6 @@ GameObject:
   - component: {fileID: 9120053138122407286}
   - component: {fileID: 5199947151820322779}
   - component: {fileID: 3090609916495185471}
-  - component: {fileID: 2608557108571733164}
   - component: {fileID: 1349017405315243896}
   m_Layer: 0
   m_Name: Trash Variant
@@ -179,19 +178,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2608557108571733164
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9056579507994473729}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.326398, y: 0.3575017, z: 0.32639807}
-  m_Center: {x: 0.000000014901161, y: 0.17875084, z: -0.000000022351742}
 --- !u!64 &1349017405315243896
 MeshCollider:
   m_ObjectHideFlags: 0
