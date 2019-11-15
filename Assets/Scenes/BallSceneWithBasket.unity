@@ -176,6 +176,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c10877f7cd5764de18d46d7b777d1faa, type: 3}
+--- !u!1 &134444617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 134444618}
+  - component: {fileID: 134444619}
+  m_Layer: 0
+  m_Name: ScoreKeeper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &134444618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134444617}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &134444619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134444617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1e980d21a094cf7b2be98e2d1bab46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startScore: 0
 --- !u!1001 &150429108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -348,9 +392,9 @@ MonoBehaviour:
   FirstPersonCamera: {fileID: 896679035}
   GameObjectVerticalPlanePrefab: {fileID: 7009553774816018172, guid: 80aa7b99d44b94e92b78391f5e5de309,
     type: 3}
-  GameObjectHorizontalPlanePrefab: {fileID: 7496596527063047807, guid: f8499a86d151a469aba80a0ea2f9cad9,
+  GameObjectHorizontalPlanePrefab: {fileID: 9056579507994473729, guid: f8499a86d151a469aba80a0ea2f9cad9,
     type: 3}
-  GameObjectPointPrefab: {fileID: 7496596527063047807, guid: f8499a86d151a469aba80a0ea2f9cad9,
+  GameObjectPointPrefab: {fileID: 9056579507994473729, guid: f8499a86d151a469aba80a0ea2f9cad9,
     type: 3}
 --- !u!1001 &688001843
 PrefabInstance:
