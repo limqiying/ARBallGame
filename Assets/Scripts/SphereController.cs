@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class SphereController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public float delay;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("scoreCounter"))
+        {
+            //gameObject.SetActive(false);
+            StartCoroutine(MakeDisappear(delay));
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator MakeDisappear(float delaySeconds)
     {
-        
+        yield return new WaitForSeconds(delaySeconds);
+        Destroy(gameObject);
     }
+
 }
