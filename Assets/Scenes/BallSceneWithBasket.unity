@@ -316,6 +316,12 @@ MonoBehaviour:
   firstPersonCamera: {fileID: 896679035}
   ballPrefab: {fileID: 4890755598192790746, guid: c9a110d5c115a478a971fd2fd9b18eb1,
     type: 3}
+  materials:
+  - {fileID: 328562782690079700, guid: f8da65a2fc14d4fb39b2a44fe884f458, type: 3}
+  - {fileID: -8483524314926069428, guid: f8da65a2fc14d4fb39b2a44fe884f458, type: 3}
+  - {fileID: 2100000, guid: 65343d6b8619345468db5951c04f91e9, type: 3}
+  - {fileID: 2100000, guid: 65343d6b8619345468db5951c04f91e9, type: 3}
+  - {fileID: 2100000, guid: 669ee420d8ea8449f91df60d461f6e3d, type: 3}
 --- !u!1 &243749103 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1026997606374626, guid: c539aa4fa1bac4b4da61761b0699b48b,
@@ -716,7 +722,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 189, y: 200}
+  m_AnchoredPosition: {x: 189, y: 308}
   m_SizeDelta: {x: 333.1, y: 79.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1608807914
