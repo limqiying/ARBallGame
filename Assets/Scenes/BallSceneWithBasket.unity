@@ -313,6 +313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPersonCamera: {fileID: 896679035}
+  ballPrefab: {fileID: 4890755598192790746, guid: c9a110d5c115a478a971fd2fd9b18eb1,
+    type: 3}
 --- !u!1 &243749103 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1026997606374626, guid: c539aa4fa1bac4b4da61761b0699b48b,
