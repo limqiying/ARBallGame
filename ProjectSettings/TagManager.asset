@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - scoreCounter
+  - Trash
   layers:
   - Default
   - TransparentFX

@@ -59,6 +59,12 @@ namespace GoogleARCore.Examples.HelloAR
 
         public ScoreKeeper globalScoreKeeper;
 
+        public GameMode gameMode;
+
+        public List<Vector3> locations;
+
+        private int currentAge;
+
         /// <summary>
         /// The rotation in degrees need to apply to prefab when it is placed.
         /// </summary>
@@ -78,6 +84,7 @@ namespace GoogleARCore.Examples.HelloAR
             // Enable ARCore to target 60fps camera capture frame rate on supported devices.
             // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
             Application.targetFrameRate = 60;
+            currentAge = 0;
         }
 
         /// <summary>
@@ -88,79 +95,86 @@ namespace GoogleARCore.Examples.HelloAR
             _UpdateApplicationLifecycle();
 
             // If the player has not touched the screen, we are done with this update.
-            Touch touch;
-            if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
+            if (gameMode.CurrentMode == Mode.SetUp)
             {
-                return;
-            }
-
-            //// Should not handle input if the player is pointing on UI.
-            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-            {
-                return;
-            }
-
-            // Raycast against the location the player touched to search for planes.
-            TrackableHit hit;
-            TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
-                TrackableHitFlags.FeaturePointWithSurfaceNormal;
-
-            if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
-            {
-                // Use hit pose and camera pose to check if hittest is from the
-                // back of the plane, if it is, no need to create the anchor.
-                if ((hit.Trackable is DetectedPlane) &&
-                    Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
-                        hit.Pose.rotation * Vector3.up) < 0)
+                Touch touch;
+                if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
                 {
-                    Debug.Log("Hit at back of the current DetectedPlane");
+                    return;
                 }
-                else
+
+                //// Should not handle input if the player is pointing on UI.
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                 {
-                    // Choose the prefab based on the Trackable that got hit.
-                    GameObject prefab;
-                    bool vertical = false;
-                    if (hit.Trackable is FeaturePoint)
+                    return;
+                }
+
+                // Raycast against the location the player touched to search for planes.
+                TrackableHit hit;
+                TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
+                    TrackableHitFlags.FeaturePointWithSurfaceNormal;
+
+                if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
+                {
+                    // Use hit pose and camera pose to check if hittest is from the
+                    // back of the plane, if it is, no need to create the anchor.
+                    if ((hit.Trackable is DetectedPlane) &&
+                        Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
+                            hit.Pose.rotation * Vector3.up) < 0)
                     {
-                        prefab = GameObjectPointPrefab;
+                        Debug.Log("Hit at back of the current DetectedPlane");
                     }
-                    else if (hit.Trackable is DetectedPlane)
+                    else
                     {
-                        DetectedPlane detectedPlane = hit.Trackable as DetectedPlane;
-                        if (detectedPlane.PlaneType == DetectedPlaneType.Vertical)
+                        // Choose the prefab based on the Trackable that got hit.
+                        GameObject prefab;
+                        bool vertical = false;
+                        if (hit.Trackable is FeaturePoint)
                         {
-                            prefab = GameObjectVerticalPlanePrefab;
-                            vertical = true;
+                            prefab = GameObjectPointPrefab;
+                        }
+                        else if (hit.Trackable is DetectedPlane)
+                        {
+                            DetectedPlane detectedPlane = hit.Trackable as DetectedPlane;
+                            if (detectedPlane.PlaneType == DetectedPlaneType.Vertical)
+                            {
+                                prefab = GameObjectVerticalPlanePrefab;
+                                vertical = true;
+                            }
+                            else
+                            {
+                                prefab = GameObjectHorizontalPlanePrefab;
+                            }
                         }
                         else
                         {
                             prefab = GameObjectHorizontalPlanePrefab;
                         }
-                    }
-                    else
-                    {
-                        prefab = GameObjectHorizontalPlanePrefab;
-                    }
 
-                    // Instantiate prefab at the hit pose.
-                    var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                        if (canPlace(hit.Pose.position))
+                        {
+                            var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                            BasketAge age = gameObject.GetComponent<BasketAge>();
+                            age.Age = currentAge++;
+                            if (vertical)
+                            {
+                                //gameObject.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
+                            }
+                            else
+                            {
+                                gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+                            }
+                            // Create an anchor to allow ARCore to track the hitpoint as understanding of
+                            // the physical world evolves.
+                            var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
-                    if (vertical)
-                    {
-                        gameObject.transform.Rotate(0.0f, 90.0f, 270.0f, Space.Self);
+                            // Make game object a child of the anchor.
+                            gameObject.transform.parent = anchor.transform;
+                            ScoreTrigger scoreTrigger = gameObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
+                            scoreTrigger.scoreKeeper = globalScoreKeeper;
+                            locations.Add(hit.Pose.position);
+                        }
                     }
-                    else
-                    {
-                        gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
-                    }
-                    // Create an anchor to allow ARCore to track the hitpoint as understanding of
-                    // the physical world evolves.
-                    var anchor = hit.Trackable.CreateAnchor(hit.Pose);
-
-                    // Make game object a child of the anchor.
-                    gameObject.transform.parent = anchor.transform;
-                    ScoreTrigger scoreTrigger = gameObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
-                    scoreTrigger.scoreKeeper = globalScoreKeeper;
                 }
             }
         }
@@ -238,5 +252,23 @@ namespace GoogleARCore.Examples.HelloAR
                 }));
             }
         }
+
+        private bool canPlace(Vector3 position)
+        {
+            foreach (Vector3 existingLocation in locations)
+            {
+                if (!WithinBounds(existingLocation, position))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool WithinBounds(Vector3 original, Vector3 newPosition)
+        {
+            return Mathf.Abs(newPosition.x - original.x) > 0.1 && Mathf.Abs(newPosition.y - original.y) > 0.1 && Mathf.Abs(newPosition.z - original.z) > 0.1;
+        }
     }
+
 }
