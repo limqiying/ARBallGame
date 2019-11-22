@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrashController : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Trash")
         {
@@ -12,12 +12,12 @@ public class TrashController : MonoBehaviour
             int myAge = gameObject.GetComponent<BasketAge>().Age;
             if (myAge < otherAge)
             {
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
                 Destroy(gameObject);
             }
             else
             {
-                other.gameObject.SetActive(false);
+                //other.gameObject.SetActive(false);
                 Destroy(other.gameObject);
             }
         }

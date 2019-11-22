@@ -61,7 +61,7 @@ namespace GoogleARCore.Examples.HelloAR
 
         public GameMode gameMode;
 
-        public List<Vector3> locations;
+        //public List<Vector3> locations;
 
         private int currentAge;
 
@@ -109,15 +109,12 @@ namespace GoogleARCore.Examples.HelloAR
                     return;
                 }
 
-                // Raycast against the location the player touched to search for planes.
                 TrackableHit hit;
                 TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
                     TrackableHitFlags.FeaturePointWithSurfaceNormal;
 
                 if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
                 {
-                    // Use hit pose and camera pose to check if hittest is from the
-                    // back of the plane, if it is, no need to create the anchor.
                     if ((hit.Trackable is DetectedPlane) &&
                         Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
                             hit.Pose.rotation * Vector3.up) < 0)
@@ -151,8 +148,8 @@ namespace GoogleARCore.Examples.HelloAR
                             prefab = GameObjectHorizontalPlanePrefab;
                         }
 
-                        if (canPlace(hit.Pose.position))
-                        {
+                        //if (canPlace(hit.Pose.position))
+                        //{
                             var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
                             BasketAge age = gameObject.GetComponent<BasketAge>();
                             age.Age = currentAge++;
@@ -172,8 +169,8 @@ namespace GoogleARCore.Examples.HelloAR
                             gameObject.transform.parent = anchor.transform;
                             ScoreTrigger scoreTrigger = gameObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
                             scoreTrigger.scoreKeeper = globalScoreKeeper;
-                            locations.Add(hit.Pose.position);
-                        }
+                            //locations.Add(hit.Pose.position);
+                        //}
                     }
                 }
             }
@@ -257,7 +254,7 @@ namespace GoogleARCore.Examples.HelloAR
         {
             foreach (Vector3 existingLocation in locations)
             {
-                if (!WithinBounds(existingLocation, position))
+                if (WithinBounds(existingLocation, position))
                 {
                     return false;
                 }
@@ -267,7 +264,7 @@ namespace GoogleARCore.Examples.HelloAR
 
         private bool WithinBounds(Vector3 original, Vector3 newPosition)
         {
-            return Mathf.Abs(newPosition.x - original.x) > 0.1 && Mathf.Abs(newPosition.y - original.y) > 0.1 && Mathf.Abs(newPosition.z - original.z) > 0.1;
+            return Mathf.Abs(newPosition.x - original.x) < 0.1 || Mathf.Abs(newPosition.y - original.y) < 0.1 || Mathf.Abs(newPosition.z - original.z) < 0.1;
         }
     }
 
