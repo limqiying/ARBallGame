@@ -1,27 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lean.Touch;
 
 public class ThrowBall : MonoBehaviour
 {
     public Camera firstPersonCamera;
     public GameObject ballPrefab;
     public List<Material> materials;
+    public GameMode gameMode;
     public System.Random random;
+    public LeanFingerSwipe swipe;
 
     private void Start()
     {
         random = new System.Random();
+        swipe = GetComponent<LeanFingerSwipe>();
+        swipe.OnFinger.AddListener(ThrowABall);
+        
     }
 
-    public void ThrowButtonPressed()
+    private void ThrowABall(LeanFinger finger)
     {
-        GameObject ball = Instantiate(ballPrefab);
-        ball.transform.position = firstPersonCamera.transform.TransformPoint(0, 0, 0.5f);
-        ball.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-        ball.GetComponent<SphereController>().delay = 3.0f;
-        ball.GetComponent<Renderer>().material = materials[random.Next(0, 5)];
-        ball.GetComponent<Rigidbody>().AddForce(firstPersonCamera.transform.TransformDirection(0, 1f, 2f), ForceMode.Impulse);
+        if (gameMode.CurrentMode == Mode.Playing)
+        {
+            float force = Vector2.Distance(finger.StartScreenPosition, finger.LastScreenPosition);
+            GameObject ball = Instantiate(ballPrefab);
+            ball.transform.position = firstPersonCamera.transform.TransformPoint(0, 0, 0.5f);
+            ball.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            ball.GetComponent<SphereController>().delay = 3.0f;
+            ball.GetComponent<Renderer>().material = materials[random.Next(0, 5)];
+            ball.GetComponent<Rigidbody>().AddForce(firstPersonCamera.transform.TransformDirection(0, 2f, force / 50), ForceMode.Impulse);
+        }
     }
 
 }
