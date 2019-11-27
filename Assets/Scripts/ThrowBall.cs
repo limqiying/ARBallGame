@@ -11,6 +11,7 @@ public class ThrowBall : MonoBehaviour
     public GameMode gameMode;
     public System.Random random;
     public LeanFingerSwipe swipe;
+    public AudioClip throwSound;
 
     private void Start()
     {
@@ -30,7 +31,16 @@ public class ThrowBall : MonoBehaviour
             ball.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             ball.GetComponent<SphereController>().delay = 3.0f;
             ball.GetComponent<Renderer>().material = materials[random.Next(0, 5)];
-            ball.GetComponent<Rigidbody>().AddForce(firstPersonCamera.transform.TransformDirection(0, 2f, force / 50), ForceMode.Impulse);
+            ball.GetComponent<Rigidbody>().AddForce(firstPersonCamera.transform.TransformDirection(0, force / 90, force / 90), ForceMode.Impulse);
+        }
+    }
+
+    public void PlayAudio()
+    {
+        if (gameMode.CurrentMode == Mode.Playing)
+        {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.PlayOneShot(throwSound);
         }
     }
 

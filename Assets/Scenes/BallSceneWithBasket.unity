@@ -454,13 +454,12 @@ MonoBehaviour:
   onFinger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 180415134}
-        m_MethodName: PlayOneShot
-        m_Mode: 2
+      - m_Target: {fileID: 180415135}
+        m_MethodName: PlayAudio
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 8c258dca7e08fb1438113b0b75348f71,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -631,6 +630,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 669ee420d8ea8449f91df60d461f6e3d, type: 3}
   gameMode: {fileID: 1703165282}
   swipe: {fileID: 0}
+  throwSound: {fileID: 8300000, guid: 8c258dca7e08fb1438113b0b75348f71, type: 3}
 --- !u!1 &243749103 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1026997606374626, guid: c539aa4fa1bac4b4da61761b0699b48b,
@@ -807,7 +807,6 @@ MonoBehaviour:
     type: 3}
   globalScoreKeeper: {fileID: 134444619}
   gameMode: {fileID: 1703165282}
-  locations: []
 --- !u!1001 &688001843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -917,7 +916,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 86.54999, y: 387.2}
+  m_AnchoredPosition: {x: -79.95004, y: 387.2}
   m_SizeDelta: {x: 333.1, y: 79.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1159393125
@@ -954,7 +953,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2

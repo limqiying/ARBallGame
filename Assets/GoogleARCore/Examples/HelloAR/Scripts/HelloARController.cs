@@ -250,22 +250,22 @@ namespace GoogleARCore.Examples.HelloAR
             }
         }
 
-        private bool canPlace(Vector3 position)
-        {
-            foreach (Vector3 existingLocation in locations)
-            {
-                if (WithinBounds(existingLocation, position))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        //private bool canPlace(Vector3 position)
+        //{
+        //    foreach (Vector3 existingLocation in locations)
+        //    {
+        //        if (WithinBounds(existingLocation, position))
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
 
-        private bool WithinBounds(Vector3 original, Vector3 newPosition)
-        {
-            return Mathf.Abs(newPosition.x - original.x) < 0.1 || Mathf.Abs(newPosition.y - original.y) < 0.1 || Mathf.Abs(newPosition.z - original.z) < 0.1;
-        }
+        //private bool WithinBounds(Vector3 original, Vector3 newPosition)
+        //{
+        //    return Mathf.Abs(newPosition.x - original.x) < 0.1 || Mathf.Abs(newPosition.y - original.y) < 0.1 || Mathf.Abs(newPosition.z - original.z) < 0.1;
+        //}
     }
 
 }

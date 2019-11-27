@@ -10,6 +10,6 @@ public class ModeText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        modeText.text = gameMode.CurrentMode == Mode.SetUp ? "Play <--" : "Set Up -->";
+        modeText.text = gameMode.CurrentMode == Mode.SetUp ? "Swipe Left to Play" : "Swipe Right to Set Up";
     }
 }
