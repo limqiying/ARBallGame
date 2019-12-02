@@ -36,49 +36,23 @@ namespace GoogleARCore.Examples.HelloAR
     /// </summary>
     public class HelloARController : MonoBehaviour
     {
-        /// <summary>
-        /// The first-person camera being used to render the passthrough camera image (i.e. AR
-        /// background).
-        /// </summary>
+
         public Camera FirstPersonCamera;
-
-        /// <summary>
-        /// A prefab to place when a raycast from a user touch hits a vertical plane.
-        /// </summary>
         public GameObject GameObjectVerticalPlanePrefab;
-
-        /// <summary>
-        /// A prefab to place when a raycast from a user touch hits a horizontal plane.
-        /// </summary>
         public GameObject GameObjectHorizontalPlanePrefab;
 
-        /// <summary>
-        /// A prefab to place when a raycast from a user touch hits a feature point.
-        /// </summary>
         public GameObject GameObjectPointPrefab;
-
         public ScoreKeeper globalScoreKeeper;
-
         public GameMode gameMode;
-
-        //public List<Vector3> locations;
+        public GyroController gyroController;
 
         private int currentAge;
-
-        /// <summary>
-        /// The rotation in degrees need to apply to prefab when it is placed.
-        /// </summary>
         private const float k_PrefabRotation = 180.0f;
 
-        /// <summary>
-        /// True if the app is in the process of quitting due to an ARCore connection error,
-        /// otherwise false.
-        /// </summary>
+
         private bool m_IsQuitting = false;
 
-        /// <summary>
-        /// The Unity Awake() method.
-        /// </summary>
+
         public void Awake()
         {
             // Enable ARCore to target 60fps camera capture frame rate on supported devices.
@@ -148,37 +122,28 @@ namespace GoogleARCore.Examples.HelloAR
                             prefab = GameObjectHorizontalPlanePrefab;
                         }
 
-                        //if (canPlace(hit.Pose.position))
-                        //{
-                            var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
-                            BasketAge age = gameObject.GetComponent<BasketAge>();
-                            age.Age = currentAge++;
-                            if (vertical)
+                            var worldObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                            worldObject.GetComponent<BasketAge>().Age = currentAge++;
+                            if (vertical && gyroController.GyroEnabled)
                             {
-                                //gameObject.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
+                                Vector3 newYAxis = -1 * gyroController.GetGravityDirection();
+                                worldObject.transform.up = newYAxis;
                             }
                             else
                             {
-                                gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+                                worldObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
                             }
-                            // Create an anchor to allow ARCore to track the hitpoint as understanding of
-                            // the physical world evolves.
                             var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
                             // Make game object a child of the anchor.
-                            gameObject.transform.parent = anchor.transform;
-                            ScoreTrigger scoreTrigger = gameObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
+                            worldObject.transform.parent = anchor.transform;
+                            ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
                             scoreTrigger.scoreKeeper = globalScoreKeeper;
-                            //locations.Add(hit.Pose.position);
-                        //}
                     }
                 }
             }
         }
 
-        /// <summary>
-        /// Check and update the application lifecycle.
-        /// </summary>
         private void _UpdateApplicationLifecycle()
         {
             // Exit the app when the 'back' button is pressed.
@@ -250,22 +215,6 @@ namespace GoogleARCore.Examples.HelloAR
             }
         }
 
-        //private bool canPlace(Vector3 position)
-        //{
-        //    foreach (Vector3 existingLocation in locations)
-        //    {
-        //        if (WithinBounds(existingLocation, position))
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    return true;
-        //}
-
-        //private bool WithinBounds(Vector3 original, Vector3 newPosition)
-        //{
-        //    return Mathf.Abs(newPosition.x - original.x) < 0.1 || Mathf.Abs(newPosition.y - original.y) < 0.1 || Mathf.Abs(newPosition.z - original.z) < 0.1;
-        //}
     }
 
 }
