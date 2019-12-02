@@ -10,14 +10,12 @@ public class TrashController : MonoBehaviour
         {
             int otherAge = other.gameObject.GetComponent<BasketAge>().Age;
             int myAge = gameObject.GetComponent<BasketAge>().Age;
-            if (myAge < otherAge)
+            if (myAge > otherAge)
             {
-                //gameObject.SetActive(false);
                 Destroy(gameObject);
             }
             else
             {
-                //other.gameObject.SetActive(false);
                 Destroy(other.gameObject);
             }
         }
