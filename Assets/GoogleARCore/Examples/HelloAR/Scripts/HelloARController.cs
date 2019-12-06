@@ -136,7 +136,7 @@ namespace GoogleARCore.Examples.HelloAR
 
                             /* try to get basket to look at some direction */
                             //worldObject.transform.LookAt(gyroController.GetGravityDirection());
-                            worldObject.transform.Rotate(0, 0, 180,Space.World);
+                            //worldObject.transform.Rotate(0, 270, 0, Space.World);
 
                         }
                         else

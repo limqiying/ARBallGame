@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstPersonCamera: {fileID: 896679035}
-  GameObjectVerticalPlanePrefab: {fileID: 7009553774816018172, guid: 80aa7b99d44b94e92b78391f5e5de309,
+  GameObjectVerticalPlanePrefab: {fileID: 6439768818037090290, guid: 95eced485eec54ad88c503b967ede966,
     type: 3}
   GameObjectHorizontalPlanePrefab: {fileID: 9056579507994473729, guid: f8499a86d151a469aba80a0ea2f9cad9,
     type: 3}
