@@ -122,23 +122,35 @@ namespace GoogleARCore.Examples.HelloAR
                             prefab = GameObjectHorizontalPlanePrefab;
                         }
 
-                            var worldObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
-                            worldObject.GetComponent<BasketAge>().Age = currentAge++;
-                            if (vertical && gyroController.GyroEnabled)
-                            {
-                                Vector3 newYAxis = -1 * gyroController.GetGravityDirection();
-                                worldObject.transform.up = newYAxis;
-                            }
-                            else
-                            {
-                                worldObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
-                            }
-                            var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+                        var worldObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                        worldObject.GetComponent<BasketAge>().Age = currentAge++;
+                        if (vertical)
+                        {
+                            //worldObject.transform.Rotate(90.0f, k_PrefabRotation, 0, Space.Self);
+                            /* online example */
+                            //worldObject.transform.rotation = Quaternion.FromToRotation(Vector3.forward, Vector3.up) * Quaternion.LookRotation(yAx);
 
-                            // Make game object a child of the anchor.
-                            worldObject.transform.parent = anchor.transform;
-                            ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
-                            scoreTrigger.scoreKeeper = globalScoreKeeper;
+                            /* try to get the transformation between up and gravity direction */
+                            //Quaternion rotation = Quaternion.FromToRotation(worldObject.transform.up, gyroController.GetGravityDirection());
+                            //worldObject.transform.localRotation = rotation;
+
+                            /* try to get basket to look at some direction */
+                            //worldObject.transform.LookAt(gyroController.GetGravityDirection());
+                            worldObject.transform.Rotate(0, 0, 180,Space.World);
+
+                        }
+                        else
+                        {
+                            worldObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+                        }
+
+
+                        var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+                        // Make game object a child of the anchor.
+                        worldObject.transform.parent = anchor.transform;
+                        ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
+                        scoreTrigger.scoreKeeper = globalScoreKeeper;
                     }
                 }
             }
