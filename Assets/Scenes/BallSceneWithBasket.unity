@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TapThreshold: 0.2
-  SwipeThreshold: 100
+  SwipeThreshold: 50
   ReferenceDpi: 200
   GuiLayers:
     serializedVersion: 2
@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstPersonCamera: {fileID: 896679035}
-  GameObjectVerticalPlanePrefab: {fileID: 6439768818037090290, guid: 95eced485eec54ad88c503b967ede966,
+  GameObjectVerticalPlanePrefab: {fileID: 5731079149050114771, guid: ffd2ec24fd607442993e279c990dcdfc,
     type: 3}
   GameObjectHorizontalPlanePrefab: {fileID: 9056579507994473729, guid: f8499a86d151a469aba80a0ea2f9cad9,
     type: 3}

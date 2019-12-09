@@ -122,10 +122,19 @@ namespace GoogleARCore.Examples.HelloAR
                             prefab = GameObjectHorizontalPlanePrefab;
                         }
 
-                        var worldObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
-                        worldObject.GetComponent<BasketAge>().Age = currentAge++;
                         if (vertical)
                         {
+                            var worldObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                            worldObject.GetComponent<BasketAge>().Age = currentAge++;
+                            //worldObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+                            var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+                            // Make game object a child of the anchor.
+                            worldObject.transform.parent = anchor.transform;
+                            ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
+                            scoreTrigger.scoreKeeper = globalScoreKeeper;
+
+
                             //worldObject.transform.Rotate(90.0f, k_PrefabRotation, 0, Space.Self);
                             /* online example */
                             //worldObject.transform.rotation = Quaternion.FromToRotation(Vector3.forward, Vector3.up) * Quaternion.LookRotation(yAx);
@@ -141,16 +150,18 @@ namespace GoogleARCore.Examples.HelloAR
                         }
                         else
                         {
+                            var worldObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                            worldObject.GetComponent<BasketAge>().Age = currentAge++;
                             worldObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+                            var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+                            // Make game object a child of the anchor.
+                            worldObject.transform.parent = anchor.transform;
+                            ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
+                            scoreTrigger.scoreKeeper = globalScoreKeeper;
                         }
 
 
-                        var anchor = hit.Trackable.CreateAnchor(hit.Pose);
-
-                        // Make game object a child of the anchor.
-                        worldObject.transform.parent = anchor.transform;
-                        ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
-                        scoreTrigger.scoreKeeper = globalScoreKeeper;
                     }
                 }
             }
