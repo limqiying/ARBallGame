@@ -5,21 +5,31 @@ using UnityEngine;
 public class SphereController : MonoBehaviour
 {
 
-    public float delay;
+    public int delay;
+    private int lifeTime;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("scoreCounter"))
         {
-            //gameObject.SetActive(false);
-            StartCoroutine(MakeDisappear(delay));
+            lifeTime = delay;
+            StartCoroutine(MakeDisappear());
         }
     }
 
-    IEnumerator MakeDisappear(float delaySeconds)
+    IEnumerator MakeDisappear()
     {
-        yield return new WaitForSeconds(delaySeconds);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(1.0f);
+        lifeTime--;
+        CheckToDestroy();
+    }
+
+    private void CheckToDestroy()
+    {
+        if (lifeTime == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 }

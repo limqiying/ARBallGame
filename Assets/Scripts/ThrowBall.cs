@@ -29,7 +29,7 @@ public class ThrowBall : MonoBehaviour
             GameObject ball = Instantiate(ballPrefab);
             ball.transform.position = firstPersonCamera.transform.TransformPoint(0, 0, 0.5f);
             ball.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-            ball.GetComponent<SphereController>().delay = 3.0f;
+            ball.GetComponent<SphereController>().delay = 10;
             ball.GetComponent<Renderer>().material = materials[random.Next(0, 5)];
             ball.GetComponent<Rigidbody>().AddForce(firstPersonCamera.transform.TransformDirection(0, force / 90, force / 90), ForceMode.Impulse);
         }

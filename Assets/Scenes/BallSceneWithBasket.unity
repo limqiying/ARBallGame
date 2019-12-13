@@ -789,7 +789,7 @@ MonoBehaviour:
   FirstPersonCamera: {fileID: 896679035}
   GameObjectVerticalPlanePrefab: {fileID: 5731079149050114771, guid: ffd2ec24fd607442993e279c990dcdfc,
     type: 3}
-  GameObjectHorizontalPlanePrefab: {fileID: 9056579507994473729, guid: f8499a86d151a469aba80a0ea2f9cad9,
+  GameObjectHorizontalPlanePrefab: {fileID: 5731079149050114771, guid: ffd2ec24fd607442993e279c990dcdfc,
     type: 3}
   GameObjectPointPrefab: {fileID: 9056579507994473729, guid: f8499a86d151a469aba80a0ea2f9cad9,
     type: 3}
@@ -1564,6 +1564,7 @@ MonoBehaviour:
   totalTime: 30
   timerText: {fileID: 2049370441}
   gameMode: {fileID: 1703165282}
+  timeLeft: 0
 --- !u!1 &2083512464
 GameObject:
   m_ObjectHideFlags: 0
