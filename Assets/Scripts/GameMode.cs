@@ -4,31 +4,37 @@ using UnityEngine;
 
 public class GameMode : MonoBehaviour
 {
-	private Mode _mode;
-    public Mode CurrentMode
-	{
-		get
-		{
-			return _mode;
-		}
-        set
-		{
-			_mode = value;
-		}
-	}
+    public Mode CurrentMode { get; set; }
+    public ScoreKeeper scoreKeeper;
+    public GameObject timerText;
+
+    private TimerController timerController;
 
     void Start()
 	{
-		_mode = Mode.SetUp;
+        SetUp();
+        timerController = timerText.GetComponent<TimerController>();
 	}
+
+    public void RestartGame()
+    {
+        SetUp();
+        scoreKeeper.startScore = 0;
+        timerController.timeLeft = timerController.totalTime;
+    }
 
     public void SetUp()
     {
-        _mode = Mode.SetUp;
+        CurrentMode = Mode.SetUp;
     }
 
     public void Playing()
     {
-        _mode = Mode.Playing;
+        CurrentMode = Mode.Playing;
+    }
+
+    public void GameOver()
+    {
+        CurrentMode = Mode.GameOver;
     }
 }

@@ -6,16 +6,36 @@ public class TimerController : MonoBehaviour
 {
     public int totalTime;
     public Text timerText;
-    private int timeLeft;
+    public GameMode gameMode;
+
+    public int timeLeft;
+    private bool gameStarted;
 
     void Start()
     {
-        StartCountdown();
+        gameStarted = false;
+        timeLeft = totalTime;
+        UpdateTimeLeft();
+    }
+
+    private void Update()
+    {
+        if (!gameStarted && gameMode.CurrentMode == Mode.Playing)
+        {
+            StartCoroutine(StartCountdown());
+            gameStarted = true;
+        }
+
+        if (gameStarted && timeLeft == 0)
+        {
+            UpdateTimeLeft();
+            gameMode.GameOver();
+            gameStarted = false;
+        }
     }
 
     private IEnumerator StartCountdown()
     {
-        timeLeft = totalTime;
         while (timeLeft > 0)
         {
             UpdateTimeLeft();
@@ -26,7 +46,7 @@ public class TimerController : MonoBehaviour
 
     private void UpdateTimeLeft()
     {
-        timerText.text = timeLeft + " s";
+        timerText.text = timeLeft + "s";
     }
 
 }

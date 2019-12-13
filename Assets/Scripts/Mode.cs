@@ -1,5 +1,6 @@
 ﻿public enum Mode
 {
 	SetUp,
-    Playing
+    Playing,
+    GameOver
 }
