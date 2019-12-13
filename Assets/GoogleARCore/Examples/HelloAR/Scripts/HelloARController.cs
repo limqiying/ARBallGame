@@ -126,11 +126,11 @@ namespace GoogleARCore.Examples.HelloAR
                         {
                             var worldObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
                             worldObject.GetComponent<BasketAge>().Age = currentAge++;
-                            //worldObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
                             var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
                             // Make game object a child of the anchor.
                             worldObject.transform.parent = anchor.transform;
+                            worldObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
                             ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
                             scoreTrigger.scoreKeeper = globalScoreKeeper;
 
