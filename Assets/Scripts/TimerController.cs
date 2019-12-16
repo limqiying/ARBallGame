@@ -8,13 +8,19 @@ public class TimerController : MonoBehaviour
     public Text timerText;
     public GameMode gameMode;
 
-    public int timeLeft;
+    private int timeLeft;
     private bool gameStarted;
 
     void Start()
     {
         gameStarted = false;
         timeLeft = totalTime;
+        UpdateTimeLeft();
+    }
+
+    public void SetTimeLeft(int value)
+    {
+        timeLeft = value;
         UpdateTimeLeft();
     }
 

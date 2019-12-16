@@ -89,22 +89,11 @@ namespace GoogleARCore.Examples.HelloAR
 
                 if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
                 {
-                    if ((hit.Trackable is DetectedPlane) &&
-                        Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
-                            hit.Pose.rotation * Vector3.up) < 0)
+                    if ((hit.Trackable is DetectedPlane) && Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position, hit.Pose.rotation * Vector3.up) >= 0)
                     {
-                        Debug.Log("Hit at back of the current DetectedPlane");
-                    }
-                    else
-                    {
-                        // Choose the prefab based on the Trackable that got hit.
                         GameObject prefab;
                         bool vertical = false;
-                        if (hit.Trackable is FeaturePoint)
-                        {
-                            prefab = GameObjectPointPrefab;
-                        }
-                        else if (hit.Trackable is DetectedPlane)
+                        if (hit.Trackable is DetectedPlane)
                         {
                             DetectedPlane detectedPlane = hit.Trackable as DetectedPlane;
                             if (detectedPlane.PlaneType == DetectedPlaneType.Vertical)
@@ -152,7 +141,7 @@ namespace GoogleARCore.Examples.HelloAR
                         {
                             var worldObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
                             worldObject.GetComponent<BasketAge>().Age = currentAge++;
-                            worldObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+                            worldObject.transform.Rotate(0, k_PrefabRotation + 45.0f, 0, Space.Self);
                             worldObject.transform.Translate(0, 1.0f, 0);
                             var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
@@ -161,8 +150,6 @@ namespace GoogleARCore.Examples.HelloAR
                             ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
                             scoreTrigger.scoreKeeper = globalScoreKeeper;
                         }
-
-
                     }
                 }
             }

@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc98219a83dff145947365dc914d06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TapThreshold: 0.2
+  TapThreshold: 1
   SwipeThreshold: 50
   ReferenceDpi: 200
   GuiLayers:
@@ -213,7 +213,7 @@ MonoBehaviour:
     m_Bits: 4294967291
   RecordFingers: 1
   RecordThreshold: 5
-  RecordLimit: 10
+  RecordLimit: 100
   SimulateMultiFingers: 1
   PinchTwistKey: 306
   MovePivotKey: 308
@@ -276,7 +276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b1e980d21a094cf7b2be98e2d1bab46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startScore: 0
   scoreText: {fileID: 1608807914}
 --- !u!1001 &150429108
 PrefabInstance:
@@ -1345,6 +1344,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 108886784190946772, guid: cf498fc35b538884db557f7a9a2c0ef9,
+        type: 3}
+      propertyPath: m_Shadows.m_Bias
+      value: 1.645
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf498fc35b538884db557f7a9a2c0ef9, type: 3}
 --- !u!1 &1608807912
@@ -1564,7 +1568,6 @@ MonoBehaviour:
   totalTime: 30
   timerText: {fileID: 2049370441}
   gameMode: {fileID: 1703165282}
-  timeLeft: 0
 --- !u!1 &2083512464
 GameObject:
   m_ObjectHideFlags: 0

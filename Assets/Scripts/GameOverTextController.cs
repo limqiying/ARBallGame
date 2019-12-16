@@ -28,7 +28,7 @@ public class GameOverTextController : MonoBehaviour
 
     public void Show()
     {
-        gameOverText.text = "Game Over! \n" + score.startScore + " point" + (score.startScore > 1 ? "s" : "");
+        gameOverText.text = "Game Over! \n" + score.StartScore() + " point" + (score.StartScore() > 1 ? "s" : "");
         replayButton.gameObject.SetActive(true);
     }
 

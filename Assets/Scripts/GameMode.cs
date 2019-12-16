@@ -18,9 +18,9 @@ public class GameMode : MonoBehaviour
 
     public void RestartGame()
     {
-        SetUp();
-        scoreKeeper.startScore = 0;
-        timerController.timeLeft = timerController.totalTime;
+        Playing();
+        scoreKeeper.ResetScore();
+        timerController.SetTimeLeft(timerController.totalTime);
     }
 
     public void SetUp()

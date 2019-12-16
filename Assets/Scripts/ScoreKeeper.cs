@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class ScoreKeeper : MonoBehaviour
 {
-	public int startScore;
     public Text scoreText;
+	private int startScore;
 
     void Start()
 	{
@@ -18,8 +18,20 @@ public class ScoreKeeper : MonoBehaviour
         SetCountText();
 	}
 
+    public void ResetScore()
+    {
+        startScore = 0;
+        SetCountText();
+    }
+
+    public int StartScore()
+    {
+        return startScore;
+    }
+
     void SetCountText()
     {
         scoreText.text = startScore.ToString();
     }
+
 }

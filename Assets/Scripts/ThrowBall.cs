@@ -31,7 +31,7 @@ public class ThrowBall : MonoBehaviour
             ball.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             ball.GetComponent<SphereController>().delay = 10;
             ball.GetComponent<Renderer>().material = materials[random.Next(0, 5)];
-            ball.GetComponent<Rigidbody>().AddForce(firstPersonCamera.transform.TransformDirection(0, force / 90, force / 90), ForceMode.Impulse);
+            ball.GetComponent<Rigidbody>().AddForce(firstPersonCamera.transform.TransformDirection(0, force / (1.5f * 90), force / (1.5f * 90)), ForceMode.Impulse);
         }
     }
 
