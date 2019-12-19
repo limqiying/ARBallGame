@@ -25,13 +25,15 @@ public class ThrowBall : MonoBehaviour
     {
         if (gameMode.CurrentMode == Mode.Playing)
         {
-            float force = Vector2.Distance(finger.StartScreenPosition, finger.LastScreenPosition);
             GameObject ball = Instantiate(ballPrefab);
             ball.transform.position = firstPersonCamera.transform.TransformPoint(0, 0, 0.5f);
             ball.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             ball.GetComponent<SphereController>().delay = 10;
             ball.GetComponent<Renderer>().material = materials[random.Next(0, 5)];
-            ball.GetComponent<Rigidbody>().AddForce(firstPersonCamera.transform.TransformDirection(0, force / (1.5f * 90), force / (1.5f * 90)), ForceMode.Impulse);
+
+            float distance = Vector2.Distance(finger.StartScreenPosition, finger.LastScreenPosition);
+            float force = GetForce(distance);
+            ball.GetComponent<Rigidbody>().AddForce(firstPersonCamera.transform.TransformDirection(0, force, force), ForceMode.Impulse);
         }
     }
 
@@ -41,6 +43,19 @@ public class ThrowBall : MonoBehaviour
         {
             AudioSource audioSource = GetComponent<AudioSource>();
             audioSource.PlayOneShot(throwSound);
+        }
+    }
+
+    private float GetForce(float value)
+    {
+        float tempVal =  value / 135.0f;
+        if (tempVal > 3.0f)
+        {
+            return 3.0f;
+        }
+        else
+        {
+            return Mathf.Round(tempVal * 10.0f) / 10.0f;
         }
     }
 
