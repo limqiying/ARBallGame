@@ -1,39 +1,13 @@
-//-----------------------------------------------------------------------
-// <copyright file="HelloARController.cs" company="Google">
-//
-// Copyright 2017 Google Inc. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// </copyright>
-//-----------------------------------------------------------------------
-
 namespace GoogleARCore.Examples.HelloAR
 {
-    using System.Collections.Generic;
     using GoogleARCore;
-    using GoogleARCore.Examples.Common;
     using UnityEngine;
     using UnityEngine.EventSystems;
 
 #if UNITY_EDITOR
-    // Set up touch input propagation while using Instant Preview in the editor.
     using Input = InstantPreviewInput;
 #endif
 
-    /// <summary>
-    /// Controls the HelloAR example.
-    /// </summary>
     public class HelloARController : MonoBehaviour
     {
 
@@ -50,20 +24,15 @@ namespace GoogleARCore.Examples.HelloAR
         private const float k_PrefabRotation = 180.0f;
 
 
-        private bool m_IsQuitting = false;
+        private bool m_IsQuitting;
 
 
         public void Awake()
         {
-            // Enable ARCore to target 60fps camera capture frame rate on supported devices.
-            // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
             Application.targetFrameRate = 60;
             currentAge = 0;
         }
 
-        /// <summary>
-        /// The Unity Update() method.
-        /// </summary>
         public void Update()
         {
             _UpdateApplicationLifecycle();
@@ -77,7 +46,6 @@ namespace GoogleARCore.Examples.HelloAR
                     return;
                 }
 
-                //// Should not handle input if the player is pointing on UI.
                 if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                 {
                     return;
@@ -123,19 +91,6 @@ namespace GoogleARCore.Examples.HelloAR
                             ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
                             scoreTrigger.scoreKeeper = globalScoreKeeper;
 
-
-                            //worldObject.transform.Rotate(90.0f, k_PrefabRotation, 0, Space.Self);
-                            /* online example */
-                            //worldObject.transform.rotation = Quaternion.FromToRotation(Vector3.forward, Vector3.up) * Quaternion.LookRotation(yAx);
-
-                            /* try to get the transformation between up and gravity direction */
-                            //Quaternion rotation = Quaternion.FromToRotation(worldObject.transform.up, gyroController.GetGravityDirection());
-                            //worldObject.transform.localRotation = rotation;
-
-                            /* try to get basket to look at some direction */
-                            //worldObject.transform.LookAt(gyroController.GetGravityDirection());
-                            //worldObject.transform.Rotate(0, 270, 0, Space.World);
-
                         }
                         else
                         {
@@ -151,6 +106,13 @@ namespace GoogleARCore.Examples.HelloAR
                             scoreTrigger.scoreKeeper = globalScoreKeeper;
                         }
                     }
+                }
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit2;
+                if (Physics.Raycast(ray, out hit2))
+                {
+                    GameObject hoop = hit2.collider.gameObject;
+                    hoop.transform.Translate(new Vector3(.0f, .3f, .0f));
                 }
             }
         }
@@ -194,19 +156,10 @@ namespace GoogleARCore.Examples.HelloAR
                 Invoke("_DoQuit", 0.5f);
             }
         }
-
-        /// <summary>
-        /// Actually quit the application.
-        /// </summary>
         private void _DoQuit()
         {
             Application.Quit();
         }
-
-        /// <summary>
-        /// Show an Android toast message.
-        /// </summary>
-        /// <param name="message">Message string to show in the toast.</param>
         private void _ShowAndroidToastMessage(string message)
         {
             AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");

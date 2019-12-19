@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6403724401997023032}
   - component: {fileID: 3120814918154966900}
   m_Layer: 0
-  m_Name: BasketbalHoop
+  m_Name: BasketballHoop
   m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
