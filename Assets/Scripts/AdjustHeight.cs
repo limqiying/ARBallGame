@@ -8,7 +8,6 @@ public class AdjustHeight : MonoBehaviour
     GameObject selectedObject;
     Vector2 prevPos;
     float timePassed;
-    bool deleteBasket;
 
     void Update()
     {
@@ -21,7 +20,6 @@ public class AdjustHeight : MonoBehaviour
             {
                 case TouchPhase.Began:
                     prevPos = touch.position;
-                    deleteBasket = false;
                     Ray ray = Camera.main.ScreenPointToRay(touch.position);
                     RaycastHit hit2;
                     timePassed = 0.0f;
@@ -40,7 +38,7 @@ public class AdjustHeight : MonoBehaviour
                     if (timePassed > 2.0f && isBasket())
                     {
                         selectedObject.GetComponent<TrashController>().HighlightRed();
-                        deleteBasket = true;
+                        selectedObject.GetComponent<TrashController>().DestroyObject();
                     }
                     break;
 
@@ -56,15 +54,8 @@ public class AdjustHeight : MonoBehaviour
                 case TouchPhase.Ended:
                     if (isBasket())
                     {
-                        if (deleteBasket)
-                        {
-                            selectedObject.GetComponent<TrashController>().DestroyObject();
-                        }
-                        else
-                        {
-                            selectedObject.GetComponent<TrashController>().RevertToOriginalColor();
-                            selectedObject = null;
-                        }
+                        selectedObject.GetComponent<TrashController>().RevertToOriginalColor();
+                        selectedObject = null;
                     }
                     break;
             }
