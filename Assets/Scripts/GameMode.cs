@@ -18,14 +18,15 @@ public class GameMode : MonoBehaviour
 
     public void RestartGame()
     {
-        Playing();
+        SetUp();
         scoreKeeper.ResetScore();
         timerController.SetTimeLeft(timerController.totalTime);
     }
 
     public void SetUp()
     {
-        CurrentMode = Mode.SetUp;
+        if (CurrentMode != Mode.Playing)
+            CurrentMode = Mode.SetUp;
     }
 
     public void Playing()

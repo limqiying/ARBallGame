@@ -22,6 +22,7 @@ public class TimerController : MonoBehaviour
     {
         timeLeft = value;
         UpdateTimeLeft();
+        gameStarted = false;
     }
 
     private void Update()
@@ -30,6 +31,15 @@ public class TimerController : MonoBehaviour
         {
             StartCoroutine(StartCountdown());
             gameStarted = true;
+        }
+
+        if (gameStarted && timeLeft < 5.0f)
+        {
+            timerText.color = Color.red;
+        }
+        else
+        {
+            timerText.color = Color.white;
         }
 
         if (gameStarted && timeLeft == 0)

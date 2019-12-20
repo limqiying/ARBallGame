@@ -22,7 +22,8 @@ namespace GoogleARCore.Examples.HelloAR
 
         private int currentAge;
         private const float k_PrefabRotation = 180.0f;
-
+        int tapCount;
+        float doubleTapTimer;
 
         private bool m_IsQuitting;
 
@@ -36,15 +37,37 @@ namespace GoogleARCore.Examples.HelloAR
         public void Update()
         {
             _UpdateApplicationLifecycle();
+            Touch touch = new Touch();
+            if (Input.touchCount == 1 && (touch = Input.GetTouch(0)).phase == TouchPhase.Began)
+            {
+                tapCount++;
+            }
+            if (tapCount > 0)
+            {
+                doubleTapTimer += Time.deltaTime;
+            }
+            if (tapCount >= 2)
+            {
+                DoStuff(touch);
+                doubleTapTimer = 0.0f;
+                tapCount = 0;
+            }
+            if (doubleTapTimer > 0.5f)
+            {
+                doubleTapTimer = 0f;
+                tapCount = 0;
+            }
+        }
 
-            // If the player has not touched the screen, we are done with this update.
+        private void DoStuff(Touch touch)
+        {
             if (gameMode.CurrentMode == Mode.SetUp)
             {
-                Touch touch;
-                if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
-                {
-                    return;
-                }
+                //Touch touch;
+                //if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
+                //{
+                //    return;
+                //}
 
                 if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                 {
@@ -97,7 +120,7 @@ namespace GoogleARCore.Examples.HelloAR
                             var worldObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
                             worldObject.GetComponent<BasketAge>().Age = currentAge++;
                             worldObject.transform.Rotate(0, k_PrefabRotation + 45.0f, 0, Space.Self);
-                            worldObject.transform.Translate(0, 1.0f, 0);
+                            //worldObject.transform.Translate(0, 1.0f, 0);
                             var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
                             // Make game object a child of the anchor.
@@ -106,13 +129,6 @@ namespace GoogleARCore.Examples.HelloAR
                             scoreTrigger.scoreKeeper = globalScoreKeeper;
                         }
                     }
-                }
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit2;
-                if (Physics.Raycast(ray, out hit2))
-                {
-                    GameObject hoop = hit2.collider.gameObject;
-                    hoop.transform.Translate(new Vector3(.0f, .3f, .0f));
                 }
             }
         }

@@ -29,6 +29,7 @@ namespace GoogleARCore.Examples.Common
     /// </summary>
     [RequireComponent(typeof(RawImage))]
     [RequireComponent(typeof(VideoPlayer))]
+
     public class RawImageVideoPlayer : MonoBehaviour
     {
         /// <summary>
@@ -53,14 +54,12 @@ namespace GoogleARCore.Examples.Common
             VideoPlayer.prepareCompleted += _PrepareCompleted;
         }
 
-        /// <summary>
-        /// The Unity Update() method.
-        /// </summary>
         public void Update()
         {
             if (!Session.Status.IsValid() || Session.Status.IsError())
             {
                 VideoPlayer.Stop();
+                RawImage.enabled = false;
                 return;
             }
 
