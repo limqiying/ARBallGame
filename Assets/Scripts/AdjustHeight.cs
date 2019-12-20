@@ -45,9 +45,20 @@ public class AdjustHeight : MonoBehaviour
                 case TouchPhase.Moved:
                     if (isBasket())
                     {
+                        float xDirection = (touch.position - prevPos).x;
                         float yDirection = (touch.position - prevPos).y;
                         prevPos = touch.position;
-                        selectedObject.transform.Translate(new Vector3(0, yDirection * 0.001f, 0));
+
+                        if (Mathf.Abs(xDirection) < Mathf.Abs(yDirection))  
+                        {
+                            // translate the basket vertically
+                            selectedObject.transform.Translate(new Vector3(0, yDirection * 0.001f, 0));
+                        }
+                        else
+                        {
+                            // rotate the basket
+                            selectedObject.transform.Rotate(new Vector3(0, xDirection, 0));
+                        }
                     }
                     break;
 

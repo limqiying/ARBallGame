@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Lean.Touch;
+using UnityEngine.UI;
 
 public class ThrowBall : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class ThrowBall : MonoBehaviour
     public System.Random random;
     public LeanFingerSwipe swipe;
     public AudioClip throwSound;
+    public SuperpowerController superPower;
 
     private void Start()
     {
@@ -48,14 +50,15 @@ public class ThrowBall : MonoBehaviour
 
     private float GetForce(float value)
     {
+        float doublePower = superPower.IsPressed ? 2.0f : 1.0f;
         float tempVal =  value / 135.0f;
         if (tempVal > 3.0f)
         {
-            return 3.0f;
+            return 3.0f * doublePower;
         }
         else
         {
-            return Mathf.Round(tempVal * 10.0f) / 10.0f;
+            return (Mathf.Round(tempVal * 10.0f) / 10.0f) * doublePower;
         }
     }
 
