@@ -7,6 +7,7 @@ TagManager:
   - Fire
   - scoreCounter
   - Trash
+  - BasketChild
   layers:
   - Default
   - TransparentFX
