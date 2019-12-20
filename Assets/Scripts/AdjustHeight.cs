@@ -57,7 +57,7 @@ public class AdjustHeight : MonoBehaviour
                         else
                         {
                             // rotate the basket
-                            selectedObject.transform.Rotate(new Vector3(0, xDirection, 0));
+                            selectedObject.transform.Rotate(new Vector3(0, -1 * xDirection, 0));
                         }
                     }
                     break;
