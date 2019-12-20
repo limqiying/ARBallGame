@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &510200528056000922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2454830952536648210}
+  - component: {fileID: 2190610880230001882}
+  - component: {fileID: 1581845927888368875}
+  - component: {fileID: 2811601623234664737}
+  m_Layer: 0
+  m_Name: Score Trigger Up
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2454830952536648210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510200528056000922}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -40, y: -4, z: 469}
+  m_LocalScale: {x: 500, y: 100, z: 500}
+  m_Children: []
+  m_Father: {fileID: 2880603997216777143}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2190610880230001882
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510200528056000922}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1581845927888368875
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510200528056000922}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0680234, y: 0.5291513, z: 1.1612755}
+  m_Center: {x: 0.039725125, y: -0.3751792, z: -0.023411328}
+--- !u!114 &2811601623234664737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510200528056000922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e9bfd37ae25426eb94cc4dcd7abd43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trashController: {fileID: 6403724401997023032}
 --- !u!1 &5731079149050114771
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +181,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6403724401997023032}
-        m_MethodName: Highlight
+        m_MethodName: HighlightYellow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -261,6 +328,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.0005
       objectReference: {fileID: 0}
+    - target: {fileID: 1094990667794747621, guid: 80aa7b99d44b94e92b78391f5e5de309,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -63
+      objectReference: {fileID: 0}
+    - target: {fileID: 1094990667794747621, guid: 80aa7b99d44b94e92b78391f5e5de309,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 92
+      objectReference: {fileID: 0}
     - target: {fileID: 8753350648671111712, guid: 80aa7b99d44b94e92b78391f5e5de309,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -276,6 +353,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: BasketChild
+      objectReference: {fileID: 0}
+    - target: {fileID: 3559428183938838520, guid: 80aa7b99d44b94e92b78391f5e5de309,
+        type: 3}
+      propertyPath: m_Name
+      value: Score Trigger Down
       objectReference: {fileID: 0}
     - target: {fileID: 2469058784061129220, guid: 80aa7b99d44b94e92b78391f5e5de309,
         type: 3}
@@ -303,6 +385,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6325082198779367213, guid: f8da65a2fc14d4fb39b2a44fe884f458,
         type: 3}
+    - target: {fileID: 7120124383729034979, guid: 80aa7b99d44b94e92b78391f5e5de309,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.48287198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7120124383729034979, guid: 80aa7b99d44b94e92b78391f5e5de309,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.32282805
+      objectReference: {fileID: 0}
+    - target: {fileID: 7120124383729034979, guid: 80aa7b99d44b94e92b78391f5e5de309,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.023411328
+      objectReference: {fileID: 0}
+    - target: {fileID: 722912279079651556, guid: 80aa7b99d44b94e92b78391f5e5de309,
+        type: 3}
+      propertyPath: trashController
+      value: 
+      objectReference: {fileID: 6403724401997023032}
     m_RemovedComponents:
     - {fileID: 4014731295287776369, guid: 80aa7b99d44b94e92b78391f5e5de309, type: 3}
     - {fileID: 8714662891210088374, guid: 80aa7b99d44b94e92b78391f5e5de309, type: 3}

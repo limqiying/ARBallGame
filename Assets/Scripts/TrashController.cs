@@ -5,15 +5,47 @@ using System;
 public class TrashController : MonoBehaviour
 {
     Dictionary<string, Material> shaderDictionary;
-    public Material highlightYellowMaterial;
-    public Material highlightRedMaterial;
+    public Material highlightYellowMaterial, highlightRedMaterial;
+    ScoreKeeper scoreKeeper;
+    bool passedTop;
+    float timer;
 
     void Start()
     {
         shaderDictionary = new Dictionary<string, Material>();
         RegisterOriginalColor();
+        passedTop = false;
+        scoreKeeper = FindObjectsOfType<ScoreKeeper>()[0];
+        //ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
+        //scoreTrigger.scoreKeeper = globalScoreKeeper;
     }
 
+    public void ColliderTriggered(string name)
+    {
+        if (name == "Score Trigger Up")
+        {
+            passedTop = true;
+            timer = 0f;
+        }
+        if (name == "Score Trigger Down" && passedTop && timer < 1f)
+        {
+            scoreKeeper.AddOnePoint();
+            passedTop = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (passedTop)
+        {
+            timer += Time.deltaTime;
+            if (timer > 1f)
+            {
+                passedTop = false;
+                timer = 0f;
+            }
+        }
+    }
 
     public void RevertToOriginalColor()
     {

@@ -111,8 +111,8 @@ namespace GoogleARCore.Examples.HelloAR
                             // Make game object a child of the anchor.
                             worldObject.transform.parent = anchor.transform;
                             worldObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
-                            ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
-                            scoreTrigger.scoreKeeper = globalScoreKeeper;
+                            //ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
+                            //scoreTrigger.scoreKeeper = globalScoreKeeper;
 
                         }
                         else
@@ -125,8 +125,8 @@ namespace GoogleARCore.Examples.HelloAR
 
                             // Make game object a child of the anchor.
                             worldObject.transform.parent = anchor.transform;
-                            ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
-                            scoreTrigger.scoreKeeper = globalScoreKeeper;
+                            //ScoreTrigger scoreTrigger = worldObject.GetComponentsInChildren(typeof(ScoreTrigger))[0] as ScoreTrigger;
+                            //scoreTrigger.scoreKeeper = globalScoreKeeper;
                         }
                     }
                 }
